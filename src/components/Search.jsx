@@ -19,6 +19,9 @@ const Search = (props) => {
 
     const searchGoogle = async (e) => {
         e.preventDefault();
+        axios.get("https://v2.jokeapi.dev/joke/Programming,Dark?type=single").then((response) => {
+            alert(response.data.joke);
+        })
         try {
             const response = await axios.get(
                 `https://www.googleapis.com/customsearch/v1?key=${process.env.REACT_APP_KEY}&cx=${process.env.REACT_APP_CX}&q=${state}`
