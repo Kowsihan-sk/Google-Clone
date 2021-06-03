@@ -10,12 +10,12 @@ require("dotenv").config();
 const Search = (props) => {
     const goBack = () => {
         props.history.push("/");
-    }
+    };
     const [state, setState] = React.useState(
         props.location.state ? props.location.state : ""
     );
     const [results, setResults] = React.useState([]);
-    const [info, setInfo] = React.useState('');
+    const [info, setInfo] = React.useState("");
 
     const searchGoogle = async (e) => {
         e.preventDefault();
@@ -36,7 +36,7 @@ const Search = (props) => {
     };
     React.useEffect(() => {
         async function getPosts() {
-            if (props.location) {
+            if (props.location.state) {
                 try {
                     const response = await axios.get(
                         `https://www.googleapis.com/customsearch/v1?key=${process.env.REACT_APP_KEY}&cx=${process.env.REACT_APP_CX}&q=${state}`
@@ -51,7 +51,7 @@ const Search = (props) => {
             }
         }
         getPosts();
-    })
+    }, []);
 
     return (
         <div className="search">

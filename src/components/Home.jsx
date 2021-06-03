@@ -26,7 +26,6 @@ const Home = (props) => {
                     <SearchIcon className="search-icon" />
                     <MicIcon className="mic-icon" />
                 </form>
-                {/* <SearchBar /> */}
             </div>
         </div >
     )
