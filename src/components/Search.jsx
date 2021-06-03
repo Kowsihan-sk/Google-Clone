@@ -11,7 +11,7 @@ const Search = (props) => {
     const goBack = () => {
         props.history.push("/");
     };
-    const [state, setState] = React.useState(
+    const [search, setSearch] = React.useState(
         props.location.state ? props.location.state : ""
     );
     const [results, setResults] = React.useState([]);
@@ -24,7 +24,7 @@ const Search = (props) => {
         })
         try {
             const response = await axios.get(
-                `https://www.googleapis.com/customsearch/v1?key=${process.env.REACT_APP_KEY}&cx=${process.env.REACT_APP_CX}&q=${state}`
+                `https://www.googleapis.com/customsearch/v1?key=${process.env.REACT_APP_KEY}&cx=${process.env.REACT_APP_CX}&q=${search}`
             );
             if (response) {
                 setResults(response.data.items);
@@ -39,7 +39,7 @@ const Search = (props) => {
             if (props.location.state) {
                 try {
                     const response = await axios.get(
-                        `https://www.googleapis.com/customsearch/v1?key=${process.env.REACT_APP_KEY}&cx=${process.env.REACT_APP_CX}&q=${state}`
+                        `https://www.googleapis.com/customsearch/v1?key=${process.env.REACT_APP_KEY}&cx=${process.env.REACT_APP_CX}&q=${props.location.state}`
                     );
                     if (response) {
                         setResults(response.data.items);
@@ -51,7 +51,7 @@ const Search = (props) => {
             }
         }
         getPosts();
-    }, []);
+    }, [props.location.state]);
 
     return (
         <div className="search">
@@ -62,8 +62,7 @@ const Search = (props) => {
                 <div className="search-form-input">
                     <form className="home-form" onSubmit={searchGoogle} >
                         <input type="text" className="home-input"
-                            value={state} onChange={(e) => setState(e.target.value)} />
-
+                            value={search} onChange={(e) => setSearch(e.target.value)} />
                         <SearchIcon className="search-icon" />
                         <MicIcon className="mic-icon" />
                     </form>
